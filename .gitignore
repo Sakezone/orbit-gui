@@ -133,3 +133,4 @@ dmypy.json
 # CUSTOM
 *venv
 *.idea
+*.vscode
