@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { error } = require('console');
+const { app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -11,7 +12,14 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: __dirname + '/assets/orbitservericon.png'
+    // Security risk as well as very, very slow.
+    // Node integration is also a security risk
+    nodeIntegration: false,
+    // Prevent Prototype pollution.
+    contextIsolation: true,
+    enableRemoteModule: false,
+    preload: path.join(__dirname, '/scripts/preload.js'),
+    icon: path.join(__dirname,'/assets/orbitservericon.png')
   });
 
   // and load the index.html of the app.
@@ -45,3 +53,8 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+/* File Path for Orbit */
+console.log(app.getPath('userData'));
+/* File Path for, example %APPDATA%/Roaming for Windows */
+console.log(app.getPath('appData'));
