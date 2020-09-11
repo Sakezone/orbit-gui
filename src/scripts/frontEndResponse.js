@@ -1,7 +1,5 @@
 // Purpose is to communicate with the backend.
 
-// Supposedly, send signals to the backend.
-
 // 1. Grab the button event
 // 2. Have the state of the screen change
 // 3. 
@@ -23,3 +21,19 @@ button.addEventListener("click", (buttonIsPressed) => {
     console.log(buttonIsPressed);
     return buttonIsPressed;
 });
+
+
+let fileDropLocation = document.getElementById("holder");
+
+fileDropLocation.addEventListener('drop', (userFile) => {
+    userFile.preventDefault();
+    userFile.stopPropagation();
+
+    for (const f of userFile.dataTransfer.files) {
+      console.log('File(s) you dragged here: ', f.path)
+    }
+  });
+  fileDropLocation.addEventListener('dragover', (userFile) => {
+    userFile.preventDefault();
+    userFile.stopPropagation();
+  });
