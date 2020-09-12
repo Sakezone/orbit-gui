@@ -1,5 +1,4 @@
 // Purpose is to communicate with the backend.
-
 // 1. Grab the button event
 // 2. Have the state of the screen change
 // 3. 
@@ -11,15 +10,13 @@
 
 // This is for testing button functionality
 const button = document.getElementById('InstallButton');
-let buttonIsPressed = false;
 
-console.log(button);
+button.addEventListener("click", () => {
+  window.api.send("install-theme");
+});
 
-button.addEventListener("click", (buttonIsPressed) => {
-    console.log('Button is pressed!');
-    buttonIsPressed = true;
-    console.log(buttonIsPressed);
-    return buttonIsPressed;
+window.api.on("install-complete", () => {
+  console.log("fake install complete");
 });
 
 
@@ -37,3 +34,4 @@ fileDropLocation.addEventListener('drop', (userFile) => {
     userFile.preventDefault();
     userFile.stopPropagation();
   });
+  

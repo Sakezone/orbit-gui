@@ -3,17 +3,14 @@
 // Needs an asynchronous function and needs to wait for the file to be downloaded.
 // Download (do not update) file inside of a new directory if not created already.
 
-console.log('Preload filed initiated!');
+console.log('Preload file initiated!');
 
-const { ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require("electron");
 
-// Synchronous message emmiter and handler
-console.log(ipcRenderer.sendSync('synchronous-message', 'sync ping')) 
-
-// Async message handler
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-   console.log(arg)
-})
-
-// Async message sender
-ipcRenderer.send('asynchronous-message', 'async ping')
+contextBridge.exposeInMainWorld(
+   'api',
+   {
+      send: (channel, data) => { ipcRenderer.send(channel, data); },
+      on: (channel, listener) => { ipcRenderer.on(channel, listener); }
+   }
+);
