@@ -4,10 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 function InstallTheme() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 58f47030510cebe325d046e320ba647cc47b6c1d
    // let file = fs.createWriteStream("C:/Users/axemi/AppData/Roaming/BetterDiscord/themes/orbit.theme.css");
    let file = fs.createWriteStream(path.join(process.env.APPDATA, "/BetterDiscord/themes/orbit.theme.css"));
    https.get('https://raw.githubusercontent.com/Sakezone/orbit/master/theme%20file/orbit.theme.css', response => {
@@ -20,12 +16,6 @@ function InstallTheme() {
     }).on("error", err => {
         console.log(err.message);
     })
-<<<<<<< HEAD
-=======
-    console.log("testing rebase 2!");
->>>>>>> f0c8ff7... rebasing test 2
-=======
->>>>>>> 58f47030510cebe325d046e320ba647cc47b6c1d
 }
 
 exports.InstallTheme = InstallTheme;
