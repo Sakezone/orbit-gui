@@ -1,7 +1,6 @@
 // File location handling?
 const https = require('https');
 const fs = require('fs');
-const { app } = require('electron');
 const path = require('path');
 
 function InstallTheme() {
