@@ -1,7 +1,5 @@
-// TODO: Get preload to work.
-// TODO: Grab the orbit CSS Theme raw data file
-// Needs an asynchronous function and needs to wait for the file to be downloaded.
-// Download (do not update) file inside of a new directory if not created already.
+const fs = require('fs');
+const path = require('path');
 
 console.log('Preload file initiated!');
 
@@ -14,3 +12,27 @@ contextBridge.exposeInMainWorld(
       on: (channel, listener) => { ipcRenderer.on(channel, listener); }
    }
 );
+
+
+function CheckThemeFolder() {
+   try {
+      if (fs.existsSync(path.join(process.env.APPDATA, "/BetterDiscord/themes"))) {
+         console.log("BetterDiscord Themes Folder Found");
+         return true
+      } else {
+         return false
+      }
+   } catch (err) {
+      console.error("ERROR: ", err);
+   }
+}
+
+CheckThemeFolder();
+
+/*
+check betterdiscord install:
+- get folders that start with "app-"
+- split string to get version number string
+- convert number string into actual decimal to compare for highest value
+- continue to betterdiscord path
+*/ 
