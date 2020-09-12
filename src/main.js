@@ -2,6 +2,7 @@ const { error } = require('console');
 const { app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const backend = require('./scripts/backEnd');
+const themeFileParser = require('./scripts/themeFileParser');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -54,6 +55,11 @@ app.on('activate', () => {
   }
 });
 
+ipcMain.on("open-settings", (event) => {
+  // Calling the function from the themFilerParser.js
+  themeFileParser.checkOrbitFileVersion();
+  event.sender.send("settings-opened");
+});
 
 ipcMain.on("install-theme", (event) => {
   backend.InstallTheme();
