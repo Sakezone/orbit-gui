@@ -9,9 +9,9 @@
 // Once the signal is sent, the button cannot be pressed anymore
 
 // This is for testing button functionality
-const button = document.getElementById('InstallButton');
+const installButton = document.getElementById('InstallButton');
 
-button.addEventListener("click", () => {
+installButton.addEventListener("click", () => {
   window.api.send("install-theme");
 });
 
