@@ -20,6 +20,7 @@ const settingsButton = document.getElementById('SettingsButton');
 settingsButton.addEventListener("click", () => {
   // Sends it to main.js
   window.api.send("open-settings");
+  window.api.send("create-settings-dictionary");
 });
 
 // Response from the main.js
@@ -27,19 +28,24 @@ window.api.on("install-complete", () => {
   console.log("fake install complete");
 });
 
+// Response from the main.js
+window.api.on("settings-dictionary-created", () => {
+  console.log("dictionary created for settings");
+});
+
 
 let fileDropLocation = document.getElementById("holder");
 
 fileDropLocation.addEventListener('drop', (userFile) => {
-    userFile.preventDefault();
-    userFile.stopPropagation();
+  userFile.preventDefault();
+  userFile.stopPropagation();
 
-    for (const f of userFile.dataTransfer.files) {
-      console.log('File(s) you dragged here: ', f.path)
-    }
-  });
-  fileDropLocation.addEventListener('dragover', (userFile) => {
-    userFile.preventDefault();
-    userFile.stopPropagation();
-  });
-  
+  for (const f of userFile.dataTransfer.files) {
+    console.log('File(s) you dragged here: ', f.path)
+  }
+});
+fileDropLocation.addEventListener('dragover', (userFile) => {
+  userFile.preventDefault();
+  userFile.stopPropagation();
+});
+

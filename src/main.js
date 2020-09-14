@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { app, BrowserWindow, ipcMain} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const backend = require('./scripts/backEnd');
 const themeFileParser = require('./scripts/themeFileParser');
@@ -14,7 +14,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
-    icon: path.join(__dirname,'/assets/orbitservericon.png'),
+    icon: path.join(__dirname, '/assets/orbitservericon.png'),
     webPreferences: {
       // Security risk as well as very, very slow.
       // Node integration is also a security risk
@@ -55,15 +55,20 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on("open-settings", (event) => {
-  // Calling the function from the themFilerParser.js
-  themeFileParser.checkOrbitFileVersion();
-  event.sender.send("settings-opened");
-});
-
 ipcMain.on("install-theme", (event) => {
   backend.InstallTheme();
   event.sender.send("install-complete");
+});
+
+ipcMain.on("open-settings", (event) => {
+  // Calling the function from the themeFilerParser.js
+  themeFileParser.CheckOrbitFileVersion();
+  event.sender.send("settings-opened");
+});
+
+ipcMain.on("create-settings-dictionary", (event) => {
+  themeFileParser.CreateSettingsDictionary();
+  event.sender.send("settings-dictionary-created");
 });
 
 
